@@ -11,12 +11,14 @@ class Detail extends Component {
   }
 
   componentWillMount() {
+    // Find an object in an array by one of its properties
     const id = parseInt(this.props.match.params.jobId, 10);
     function isData(data) { 
       return data.id === id;
     }
     const jobDetail = JSON.parse(localStorage.getItem("jobList")).find(isData);
 
+    // Set State
     this.setState({ 
         jobDetail: jobDetail
     })

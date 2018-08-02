@@ -7,6 +7,7 @@ class List extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // Check local storage to get data, if null will be just empty array
       jobList: (localStorage.getItem("jobList") == null) ? [] : JSON.parse(localStorage.getItem("jobList")),
       total: (localStorage.getItem("jobList") == null) ? 0 : JSON.parse(localStorage.getItem("jobList")).length,
       activePage: 1
@@ -17,6 +18,7 @@ class List extends Component {
 
   componentWillMount() {
     if (this.state.jobList.length === 0) {
+      // Get Data from API if Job list data is empty then save it to local storage
       getJobList().then((response) => {
         localStorage.setItem('jobList', JSON.stringify(response.data));
         const jobList = JSON.parse(localStorage.getItem('jobList'));
@@ -29,12 +31,14 @@ class List extends Component {
     this.handlePageChange(1);
   }
 
+  // Handle Pagination
   handlePageChange(pageNumber) {
     var array = (localStorage.getItem("jobList") == null) ? [] : JSON.parse(localStorage.getItem("jobList"));
     this.setState({activePage: pageNumber});
     this.setState({ jobList: this.paginate(array, 3, pageNumber) });
   }
 
+  // Handle Page size each page from local storage
   paginate (array, page_size, page_number) {
     --page_number; // because pages logically start with 1, but technically with 0
     return array.slice(page_number * page_size, (page_number + 1) * page_size);

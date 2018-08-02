@@ -14,12 +14,15 @@ class Detail extends Component {
   }
 
   componentWillMount() {
+    // Find an object in an array by one of its properties
     const id = parseInt(this.props.match.params.jobId, 10);
     function isData(data) { 
       return data.id === id;
     }
     const jobDetail = JSON.parse(localStorage.getItem("jobList")).find(isData);
 
+    // Set State
+    // Check if router params has id
     if (this.props.match.params.jobId !== undefined) {
       this.setState({ 
         jobDetail: jobDetail
@@ -67,6 +70,8 @@ class Detail extends Component {
 
   submitData(e) {
     e.preventDefault();
+    // Check if router params has id, no id then save by new id
+    // Save data to local storage
     if (this.props.match.params.jobId !== undefined) {
       var a = JSON.parse(localStorage.getItem('jobList'));
       const id = parseInt(this.props.match.params.jobId, 10);

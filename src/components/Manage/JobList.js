@@ -53,7 +53,7 @@ class JobList extends Component {
 
   removeData(id) {
     var a = JSON.parse(localStorage.getItem('jobList'));
-    const idx = a.findIndex(idx => idx.id === id);
+    const idx = a.findIndex(idx => idx.id === id); // Find index by one of its properties
     a.splice(idx, 1);
     this.setState({ jobList: a });
     this.setState({ total: a.length });
